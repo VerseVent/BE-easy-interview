@@ -1,10 +1,10 @@
 'use strict';
+import express from "express";
+import { config } from "../config/dev.js";
 
-require('dotenv').config()
-const express = require('express');
 // Constants
-const PORT = process.env.EXPRESS_PORT;
-const HOST = process.env.EXPRESS_HOST;
+const PORT = config.EXPRESS_PORT;
+const HOST = config.EXPRESS_HOST;
 
 // App
 const app = express();
