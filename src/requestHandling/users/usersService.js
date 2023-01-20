@@ -1,7 +1,7 @@
 import { usersRepo } from "./usersRepo.js";
 
-export function usersService(model) {
-  const { createUser } = usersRepo(model);
+export function usersService() {
+  const { createUser } = usersRepo();
 
   async function signup({ username, password }) {
     if (username.trim().length <= 3) {

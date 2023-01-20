@@ -1,6 +1,6 @@
 import { usersService } from "./usersService.js";
 
-export function usersController(model) {
+export function usersController() {
   const { signup } = usersService();
 
   function signupUser(req, res, next) {

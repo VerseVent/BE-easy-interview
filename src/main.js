@@ -9,14 +9,11 @@ import { createModels } from "./service/createModels.js";
 
 const router = Router();
 
-const sequelizeInstance = await DbConnection.getInstance();
-const { users } = createModels(sequelizeInstance);
-console.log(new users());
 const app = express();
 app.use(express.json());
 
 startServer(app);
-usersRoutes(router, users);
+usersRoutes(router);
 
 app.use("/user", router);
 app.use("/question", router);
