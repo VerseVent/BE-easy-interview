@@ -11,22 +11,24 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // console.log("M: ", new users());
       // console.log("M: ", models.roles);
-      this.belongsTo(models.users, { as: "users" });
-    } 
+      this.hasMany(models.users, { foreignKey: "roles_id" });
+    }
   }
   roles.init(
     {
-      // id: {
-      //   type: DataTypes.BIGINT,
-      //   primaryKey: true,
-      //   autoIncrement: true,
-      // },
+      id: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       role: {
         type: DataTypes.STRING,
         allowNull: false,
       },
     },
     {
+      // freezeTableName: true,
+      // tableName: "roles",
       sequelize,
       modelName: "roles",
     }

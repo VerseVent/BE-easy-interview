@@ -5,7 +5,7 @@
     "database": "easy_interview",
     "host": "127.0.0.1",
     "port": "7777",
-    "dialect": "postgres"
+    "dialect": "postgres" 
   },
   "test": {
     "username": "admin",

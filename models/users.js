@@ -8,12 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.roles, { as: "roles" });
-      this.belongsTo(models.candidates);
+      this.belongsTo(models.roles, { foreignKey: "roles_id" });
+      // this.hasMany(models.candidates);
+
+      // this.belongsTo(models.candidates);
       // this.belongsTo(models.candidates, { as: "candidates" });
       // this.belongsTo(models.questions, { as: "questions" });
-      this.belongsTo(models.questions);
-
+      // this.belongsTo(models.questions);
     }
   }
   users.init(
@@ -42,6 +43,8 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      // underscored: true,
+      // freezeTableName: true,
       sequelize,
       modelName: "users",
     }
