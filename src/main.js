@@ -4,8 +4,6 @@ import { startServer } from "./server.js";
 import { handleErrors } from "./service/handleErrors.js";
 
 import { Router } from "express";
-import { DbConnection } from "./db/connection.js";
-import { createModels } from "./service/createModels.js";
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 "use strict";
 import { Model } from "sequelize";
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   class roles extends Model {
     /**
      * Helper method for defining associations.
@@ -9,8 +9,10 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      roles.belongsToMany(models.users)
-    }
+      // console.log("M: ", new users());
+      // console.log("M: ", models.roles);
+      this.belongsTo(models.users, { as: "users" });
+    } 
   }
   roles.init(
     {
@@ -18,7 +20,7 @@ export default (sequelize, DataTypes) => {
       //   type: DataTypes.BIGINT,
       //   primaryKey: true,
       //   autoIncrement: true,
-      // },  
+      // },
       role: {
         type: DataTypes.STRING,
         allowNull: false,

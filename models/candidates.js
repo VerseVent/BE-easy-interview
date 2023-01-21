@@ -1,6 +1,6 @@
-'use strict';
-import { Model } from 'sequelize';
-export default (sequelize, DataTypes) => {
+"use strict";
+import { Model } from "sequelize";
+module.exports = (sequelize, DataTypes) => {
   class candidates extends Model {
     /**
      * Helper method for defining associations.
@@ -8,15 +8,27 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // this.hasMany(models.users, { as: "users" });
+      this.belongsTo(models.results, { as: "results" });
     }
   }
-  candidates.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'candidates',
-  });
+  candidates.init(
+    {
+      username: DataTypes.STRING,
+      password: DataTypes.STRING,
+      user_id:{
+        type: DataTypes.INTEGER,
+        allowNull:false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: "candidates",
+    }
+  );
   return candidates;
 };

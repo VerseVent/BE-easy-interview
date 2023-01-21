@@ -15,6 +15,15 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      roles_id:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 2, // general user
+        references: {
+          model: 'roles',
+          key:'id',
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -23,13 +32,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      roles_id:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'roles',
-          key:'id',
-        }
-      }
+    },{
+      underscored: true
     });
   },
   async down(queryInterface, Sequelize) {

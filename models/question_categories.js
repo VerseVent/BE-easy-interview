@@ -1,6 +1,6 @@
-'use strict';
-import { Model } from 'sequelize';
-export default (sequelize, DataTypes) => {
+"use strict";
+import { Model } from "sequelize";
+module.exports = (sequelize, DataTypes) => {
   class question_categories extends Model {
     /**
      * Helper method for defining associations.
@@ -8,15 +8,18 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.questions, { as: "questions" });
     }
   }
-  question_categories.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'question_categories',
-  });
+  question_categories.init(
+    {
+      username: DataTypes.STRING,
+      password: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "question_categories",
+    }
+  );
   return question_categories;
 };

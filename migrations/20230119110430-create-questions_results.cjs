@@ -7,6 +7,22 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      result_id:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "results",
+          key: "id",
+        },
+      },
+      question_id:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "questions",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -15,20 +31,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      result_id:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "results",
-          key: "id",
-        },
-      },
-      question_id:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "questions",
-          key: "id",
-        },
-      }
     });
   },
   async down(queryInterface, Sequelize) {

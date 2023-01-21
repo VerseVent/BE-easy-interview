@@ -1,6 +1,6 @@
 "use strict";
 import { Model } from "sequelize";
-export default function (sequelize, DataTypes){
+module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     /**
      * Helper method for defining associations.
@@ -8,9 +8,12 @@ export default function (sequelize, DataTypes){
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      users.hasMany(models.roles);
-      // users.hasMany(models.candidates);
-      // users.hasMany(models.questions);
+      this.hasMany(models.roles, { as: "roles" });
+      this.belongsTo(models.candidates);
+      // this.belongsTo(models.candidates, { as: "candidates" });
+      // this.belongsTo(models.questions, { as: "questions" });
+      this.belongsTo(models.questions);
+
     }
   }
   users.init(
@@ -28,10 +31,15 @@ export default function (sequelize, DataTypes){
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // roles_id: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      // },
+      roles_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 2, // general user
+        references: {
+          model: "roles",
+          key: "id",
+        },
+      },
     },
     {
       sequelize,

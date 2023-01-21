@@ -21,6 +21,14 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      candidate_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "candidates",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -29,13 +37,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      candidate_id:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "candidates",
-          key: "id",
-        },
-      }
     });
   },
   async down(queryInterface, Sequelize) {
