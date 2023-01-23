@@ -1,7 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 module.exports = (sequelize, DataTypes) => {
-  class users extends Model {
+  class question_categories extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,13 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      //probably error
     }
   }
-  users.init(
+  question_categories.init(
     {
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      result_id: {
+      question_point: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      results_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -23,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      question_id: {
+      questions_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -34,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "users",
+      modelName: "question_categories",
     }
   );
-  return users;
+  return question_categories;
 };

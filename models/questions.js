@@ -8,16 +8,38 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.users, { as: "users" });
-      this.belongsToMany(models.results, { through: "questions_results" });
+      this.belongsTo(models.question_categories, {
+        foreignKey: "question_categories_id",
+      });
+      this.belongsTo(models.users, { foreignKey: "users_id" });
+      this.belongsToMany(models.results, {
+        through: "questions_results",
+        foreignKey: "results_id", //probably error
+      });
       // define association here
     }
   }
   questions.init(
     {
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      category_id: {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      max_point: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      question: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      answer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      question_categories_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

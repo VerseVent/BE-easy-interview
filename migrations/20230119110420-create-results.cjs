@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      candidate_id: {
+      candidates_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

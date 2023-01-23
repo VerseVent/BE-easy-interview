@@ -8,13 +8,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.questions, { as: "questions" });
+      this.hasMany(models.questions, { foreignKey: "question_categories_id" });
     }
   }
   question_categories.init(
     {
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
     },
     {
       sequelize,

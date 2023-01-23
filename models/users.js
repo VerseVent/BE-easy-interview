@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.roles, { foreignKey: "roles_id" });
-      // this.hasMany(models.candidates);
-
+      this.hasMany(models.candidates, { foreignKey: "users_id" });
+      this.hasMany(models.questions, { foreignKey: "users_id" });
       // this.belongsTo(models.candidates);
       // this.belongsTo(models.candidates, { as: "candidates" });
       // this.belongsTo(models.questions, { as: "questions" });
@@ -43,8 +43,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      // underscored: true,
-      // freezeTableName: true,
       sequelize,
       modelName: "users",
     }

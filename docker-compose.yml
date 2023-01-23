@@ -15,7 +15,7 @@ services:
     ports:
       - '6379:6379'
   pgadmin:
-    container_name: pgadmin4_container
+    container_name: pgadmin4_container_pc
     image: dpage/pgadmin4
     restart: always
     environment:

@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.users);
-      this.hasMany(models.results);
+      this.belongsTo(models.users, { foreignKey: "users_id" });
+      this.hasMany(models.results, { foreignKey: "candidates_id" });
     }
   }
   candidates.init(
     {
-      candidate_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      user_id: {
+      users_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -52,9 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "candidates",
-      underscored: true,
-
-    },
+    }
   );
   return candidates;
 };
