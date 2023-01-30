@@ -1,22 +1,23 @@
 import express from "express";
 import { usersRoutes } from "./requestHandling/users/usersRoutes.js";
 import { startServer } from "./server.js";
-import { handleErrors } from "./service/handleErrors.js";
-
-import { Router } from "express";
-
-const router = Router();
+import { handleErrors } from "./middlewares/handleErrors.js";
+import { questionsRoutes } from "./requestHandling/questions/questionsRoutes.js";
+import { candidatesRoutes } from "./requestHandling/candidates/candidatesRoutes.js";
 
 const app = express();
 app.use(express.json());
 
 startServer(app);
-usersRoutes(router);
 
-app.use("/user", router);
-app.use("/question", router);
-app.use("/candidate", router);
-app.use("/result", router);
+app.use("/users", usersRoutes());
+app.use("/questions", questionsRoutes());
+app.use("/candidates", candidatesRoutes());
+// app.use("/results", router);
+
+app.use((req, res, next) => {
+  res.status(404).send("Sorry can't find that!");
+});
 
 app.use(function (err, req, res, next) {
   handleErrors(err, res);
