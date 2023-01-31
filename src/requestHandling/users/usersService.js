@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 export function usersService() {
-  const { createUser, findByUsername } = usersRepo();
+  const { createUser, findByUsername, deleteUserById } = usersRepo();
 
   async function signup({ username, password }) {
     if (!(username && password)) {
@@ -52,5 +52,8 @@ export function usersService() {
     }
   }
 
-  return { signup, login };
+  async function deleteUser(id) {
+    return deleteUserById(id);
+  }
+  return { signup, login, deleteUser };
 }

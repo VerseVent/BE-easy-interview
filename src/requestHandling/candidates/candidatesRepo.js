@@ -62,6 +62,8 @@ export function candidatesRepo() {
   async function deleteById(users_id, candidate_id) {
     const res = candidates.destroy({
       where: { users_id, id: candidate_id },
+      cascade: true,
+      truncate: false,
     });
     return res;
   }

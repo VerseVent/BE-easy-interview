@@ -16,6 +16,12 @@ export function usersRepo() {
     });
     return user;
   }
+  async function deleteUserById(id) {
+    return users.destroy({
+      where: { id },
+      cascade: true,
+    });
+  }
 
   //CANDIDATE CREATION
 
@@ -60,5 +66,5 @@ export function usersRepo() {
   //     return res;
   //   }
   //   return { createUser };
-  return { createUser, findByUsername };
+  return { createUser, findByUsername, deleteUserById };
 }

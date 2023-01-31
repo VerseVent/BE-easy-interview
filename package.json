@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node src/main.js",
     "db:migrations": "sequelize-cli db:migrate",
+    "db:undo": "sequelize-cli db:migrate:undo",
     "db:g:seed": "sequelize-cli seed:generate --name",
     "db:seeds": "sequelize-cli db:seed:all"
   },

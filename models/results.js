@@ -9,10 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // this.hasMany(models.candidates, {as:'candidates'});
-      this.belongsTo(models.candidates, { foreignKey: "candidates_id" });
+      this.belongsTo(models.candidates, {
+        foreignKey: "candidates_id",
+        onDelete: "CASCADE",
+      });
       this.belongsToMany(models.questions, {
         through: "questions_results",
-        foreignKey: "questions_id", //probably error
+        foreignKey: "questions_id",
+        onDelete: "CASCADE",
+        //probably error
       });
       // define association here
     }
@@ -40,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       candidates_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
         references: {
           model: "candidates",
           key: "id",

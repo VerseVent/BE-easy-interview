@@ -1,7 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 module.exports = (sequelize, DataTypes) => {
-  class question_categories extends Model {
+  class questions_results extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       //probably error
     }
   }
-  question_categories.init(
+  questions_results.init(
     {
       question_point: {
         type: DataTypes.INTEGER,
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       results_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
         references: {
           model: "results",
           key: "id",
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       questions_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
         references: {
           model: "questions",
           key: "id",
@@ -37,8 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "question_categories",
+      modelName: "questions_results",
     }
   );
-  return question_categories;
+  return questions_results;
 };

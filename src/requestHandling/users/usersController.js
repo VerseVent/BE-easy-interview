@@ -1,7 +1,7 @@
 import { usersService } from "./usersService.js";
 
 export function usersController() {
-  const { signup, login } = usersService();
+  const { signup, login, deleteUser } = usersService();
 
   async function signupUser(req, res, next) {
     try {
@@ -26,6 +26,17 @@ export function usersController() {
       next(e);
     }
   }
+  async function deleteUserById(req, res, next) {
+    try {
+      const { id } = req.auth;
+      const resMessage = await deleteUser(id);
+      res.json({
+        message: resMessage,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
   async function getUsers(req, res, next) {
     try {
       res.send("Still users");
@@ -33,5 +44,5 @@ export function usersController() {
       next(e);
     }
   }
-  return { getUsers, signupUser, loginUser };
+  return { getUsers, signupUser, loginUser, deleteUserById };
 }

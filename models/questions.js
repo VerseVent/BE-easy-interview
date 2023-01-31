@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.question_categories, {
         foreignKey: "question_categories_id",
       });
-      this.belongsTo(models.users, { foreignKey: "users_id" });
+      this.belongsTo(models.users, {
+        foreignKey: "users_id",
+        onDelete: "CASCADE",
+      });
       this.belongsToMany(models.results, {
         through: "questions_results",
         foreignKey: "results_id", //probably error
@@ -42,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       question_categories_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
         references: {
           model: "question_categories",
           key: "id",
@@ -50,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       users_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
         references: {
           model: "users",
           key: "id",
