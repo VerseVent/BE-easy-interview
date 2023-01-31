@@ -1,8 +1,10 @@
 import { resultsService } from "./resultsService";
 import { resultsRepo } from "./resultsRepo";
+import { questionsResultsRepo } from "../questionsResults/questionsResultsRepo";
 
 export function resultsController() {
   const { getById, getAll, deleteById } = resultsRepo();
+  const { findByResultId } = questionsResultsRepo();
   const { createResults } = resultsService();
 
   async function getResultById(req, res, next) {
@@ -10,6 +12,16 @@ export function resultsController() {
       const { candidates_id, result_id } = req.params;
 
       const result = await getById(candidates_id, result_id);
+      res.json(result);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async function getResultWithAnswers(req, res, next) {
+    try {
+      const { result_id } = req.params;
+
+      const result = await findByResultId(result_id);
       res.json(result);
     } catch (e) {
       next(e);
@@ -57,5 +69,6 @@ export function resultsController() {
     getCandidatesAllResults,
     createResult,
     deleteResult,
+    getResultWithAnswers,
   };
 }

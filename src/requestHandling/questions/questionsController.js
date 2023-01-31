@@ -20,10 +20,10 @@ export function questionsController() {
   async function createQuestion(req, res, next) {
     try {
       const { id } = req.auth;
-      const { categoryId, maxPoint, question, answer } = req.body;
+      const { category_id, maxPoint, question, answer } = req.body;
       const userQuestion = await createUserQuestion(
         id,
-        categoryId,
+        category_id,
         maxPoint,
         question,
         answer
@@ -36,11 +36,11 @@ export function questionsController() {
   async function editQuestion(req, res, next) {
     try {
       const { id } = req.auth;
-      const { question_id, categoryId, maxPoint, question, answer } = req.body;
+      const { question_id, category_id, maxPoint, question, answer } = req.body;
       const userQuestion = await editUserQuestion(
         question_id,
         id,
-        categoryId,
+        category_id,
         maxPoint,
         question,
         answer

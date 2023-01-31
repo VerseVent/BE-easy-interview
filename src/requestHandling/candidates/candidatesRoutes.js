@@ -1,5 +1,13 @@
+import { celebrate } from "celebrate";
 import { Router } from "express";
 import { isUserLogged } from "../../middlewares/isUserLogged";
+import {
+  allCandidatesSchema,
+  createCandidateSchema,
+  deleteCandidateSchema,
+  editCandidateSchema,
+  singleCandidateSchema,
+} from "../../middlewares/schemas/candidates";
 import { candidatesController } from "./candidatesController";
 
 export function candidatesRoutes() {
@@ -14,10 +22,30 @@ export function candidatesRoutes() {
   } = candidatesController();
 
   router.get("/all", isUserLogged, getAllCandidates);
-  router.get("/get/:candidate_id", isUserLogged, getCandidateById);
-  router.post("/create", isUserLogged, createCandidate);
-  router.put("/edit", isUserLogged, updateCandidate);
-  router.delete("/delete", isUserLogged, deleteCandidate);
+  router.get(
+    "/get/:candidate_id",
+    isUserLogged,
+    celebrate(singleCandidateSchema),
+    getCandidateById
+  );
+  router.post(
+    "/create",
+    isUserLogged,
+    celebrate(createCandidateSchema),
+    createCandidate
+  );
+  router.put(
+    "/edit",
+    isUserLogged,
+    celebrate(editCandidateSchema),
+    updateCandidate
+  );
+  router.delete(
+    "/delete",
+    isUserLogged,
+    celebrate(deleteCandidateSchema),
+    deleteCandidate
+  );
 
   return router;
 }

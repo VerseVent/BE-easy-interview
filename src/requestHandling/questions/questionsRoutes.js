@@ -1,5 +1,12 @@
+import { celebrate } from "celebrate";
 import { Router } from "express";
 import { isUserLogged } from "../../middlewares/isUserLogged";
+import {
+  createQuestionSchema,
+  deleteQuestionSchema,
+  editQuestionSchema,
+  singleQuestionSchema,
+} from "../../middlewares/schemas/questions";
 import { questionsController } from "./questionsController";
 
 export function questionsRoutes() {
@@ -14,10 +21,30 @@ export function questionsRoutes() {
   } = questionsController();
 
   router.get("/all", isUserLogged, getQuestions);
-  router.get("/get/:question_id", isUserLogged, getQuestionById);
-  router.post("/create", isUserLogged, createQuestion);
-  router.put("/edit", isUserLogged, editQuestion);
-  router.delete("/delete", isUserLogged, deleteQuestion);
+  router.get(
+    "/get/:question_id",
+    isUserLogged,
+    celebrate(singleQuestionSchema),
+    getQuestionById
+  );
+  router.post(
+    "/create",
+    isUserLogged,
+    celebrate(createQuestionSchema),
+    createQuestion
+  );
+  router.put(
+    "/edit",
+    isUserLogged,
+    celebrate(editQuestionSchema),
+    editQuestion
+  );
+  router.delete(
+    "/delete",
+    isUserLogged,
+    celebrate(deleteQuestionSchema),
+    deleteQuestion
+  );
 
   return router;
 }

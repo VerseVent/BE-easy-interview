@@ -11,19 +11,18 @@ export function questionsRepo() {
     const userQuestionById = await questions.findOne({
       where: { users_id, id: question_id },
     });
-    console.log(userQuestionById);
     return userQuestionById;
   }
   async function createUserQuestion(
-    userId,
-    categoryId,
+    users_id,
+    category_id,
     maxPoint,
     question,
     answer
   ) {
     const userQuestions = await questions.create({
-      question_categories_id: categoryId,
-      users_id: userId,
+      question_categories_id: category_id,
+      users_id,
       max_point: maxPoint,
       question,
       answer,
@@ -32,36 +31,28 @@ export function questionsRepo() {
   }
   async function editUserQuestion(
     question_id,
-    userId,
-    categoryId,
+    users_id,
+    category_id,
     maxPoint,
     question,
     answer
   ) {
     const userQuestion = await questions.update(
       {
-        question_categories_id: categoryId,
-        users_id: userId,
+        question_categories_id: category_id,
+        users_id,
         max_point: maxPoint,
         question,
         answer,
       },
-      { where: { id: question_id, users_id: userId } }
+      { where: { id: question_id, users_id } }
     );
     return userQuestion;
   }
 
-  async function getQuestionById(questionId, userId) {
-    const question = await questions.findOne({
-      where: { id: questionId, users_id: userId },
-    });
-
-    return question;
-  }
-  async function deleteUserQuestion(questionId, userId) {
-    console.log(userId);
+  async function deleteUserQuestion(question_id, users_id) {
     const res = await questions.destroy({
-      where: { id: questionId, users_id: userId },
+      where: { id: question_id, users_id },
     });
 
     return res;
