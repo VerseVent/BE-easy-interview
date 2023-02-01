@@ -21,5 +21,6 @@ export function usersRoutes() {
     deleteUserById
   );
   router.get("/getAllUsers", getUsers);
+  router.get("/auth", isUserLogged, getUsers);
   return router;
 }

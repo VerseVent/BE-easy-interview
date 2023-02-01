@@ -16,8 +16,8 @@ export function usersController() {
   async function loginUser(req, res, next) {
     try {
       const userData = req.body;
+      console.log(userData);
       const { user, token } = await login(userData);
-
       res.json({
         user,
         token,
@@ -44,5 +44,15 @@ export function usersController() {
       next(e);
     }
   }
-  return { getUsers, signupUser, loginUser, deleteUserById };
+  async function authUser(req, res, next) {
+    try {
+      const { id } = req.auth;
+      res.json({
+        user_id: id,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+  return { getUsers, signupUser, loginUser, deleteUserById, authUser };
 }

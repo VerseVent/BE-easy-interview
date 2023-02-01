@@ -5,8 +5,8 @@ export function usersRepo() {
   async function createUser(username, password) {
     const oldUser = await findByUsername(username);
 
+    console.log(oldUser);
     if (oldUser) throwError("User already exists. Please login", 400);
-
     return users.create({ username, password, roles_id: 2 });
   }
 
