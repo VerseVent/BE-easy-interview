@@ -11,6 +11,11 @@ const chalk = require("chalk");
 const logger = console.log;
 
 const app = express();
+
+const cors = require("cors");
+
+
+app.use(cors());
 app.use(express.json());
 
 startServer(app);
