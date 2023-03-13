@@ -9,7 +9,7 @@ import {
 const { celebrate } = require("celebrate");
 
 export function usersRoutes() {
-  const { getUsers, signupUser, loginUser, deleteUserById } = usersController();
+  const { getUsers, signupUser, loginUser, deleteUserById, authUser } = usersController();
   const router = Router();
 
   router.post("/signup", celebrate(signupSchema), signupUser);
@@ -21,6 +21,6 @@ export function usersRoutes() {
     deleteUserById
   );
   router.get("/getAllUsers", getUsers);
-  router.get("/auth", isUserLogged, getUsers);
+  router.get("/auth", isUserLogged, authUser);
   return router;
 }

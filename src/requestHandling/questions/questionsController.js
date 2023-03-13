@@ -1,4 +1,6 @@
 import { questionsRepo } from "./questionsRepo";
+import redis from "../../redis/redisClient";
+import {config} from '../../../config/dev'; 
 
 export function questionsController() {
   const {
@@ -11,8 +13,18 @@ export function questionsController() {
   async function getQuestions(req, res, next) {
     try {
       const { id } = req.auth;
-      const questions = await getUserQuestions(id);
-      res.json(questions);
+      const questions = await redis.get(`questions:users_id:${id}`);
+
+      if(!questions){
+        const dbQuestions = await getUserQuestions(id);
+        
+        await redis.setEx(`questions:users_id:${id}`,
+         config.REDIS_EXPIRED, JSON.stringify(dbQuestions));
+
+        return res.json(dbQuestions);
+      }
+
+      return res.json(JSON.parse(questions));
     } catch (e) {
       next(e);
     }
@@ -67,8 +79,9 @@ export function questionsController() {
     try {
       const { id } = req.auth;
       const { question_id } = req.params;
-      console.log(question_id);
+      
       const question = await getById(id, question_id);
+
       res.json(question);
     } catch (e) {
       next(e);

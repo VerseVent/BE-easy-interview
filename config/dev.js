@@ -9,4 +9,7 @@ export const config = {
   PG_DATABASE: process.env.PGDATABASE,
   PG_PORT: process.env.PGPORT,
   JWT_SECRET: process.env.JWTPRIVATEKEY,
+  REDIS_HOST: process.env.REDIS_HOST,
+  REDIS_PORT: process.env.REDIS_PORT,
+  REDIS_EXPIRED: process.env.REDIS_EXPIRED_TIME,
 };

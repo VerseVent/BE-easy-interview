@@ -19,9 +19,17 @@ export function candidatesRoutes() {
     createCandidate,
     updateCandidate,
     deleteCandidate,
+    getPageCandidates,
+    getByUsername
   } = candidatesController();
 
   router.get("/all", isUserLogged, getAllCandidates);
+  router.get("/page", isUserLogged, getPageCandidates);
+  router.get(
+    "/getByUsername/:username",
+    isUserLogged,
+    getByUsername
+  );
   router.get(
     "/get/:candidate_id",
     isUserLogged,
